@@ -1,58 +1,57 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/style.css">
-<title>Schitchat</title><meta name="description" content="Watch the same thing at the same time and talk through it with everyone else who is.">
-</head><body><div class="wrap">
-<header class="site">
-  <a href="/"><img src="wordmark.png" alt="Schitchat"></a>
-  <nav>
-    <a href="/support.html">Support</a>
-    <a href="/guidelines.html">Guidelines</a>
-    <a href="/terms.html">Terms</a>
-    <a href="/privacy.html">Privacy</a>
-  </nav>
-</header>
+<!DOCTYPE html>
+<html>
+<head>
+  <!--
+    If you are serving your web app in a path other than the root, change the
+    href value below to reflect the base path you are serving from.
 
+    The path provided below has to start and end with a slash "/" in order for
+    it to work correctly.
 
-<div class="hero">
-  <img src="/logo_full.png" alt="Schitchat">
-  <h1>Everyone's watching it.<br>Now you can hear them.</h1>
-  <p class="lede" style="margin:1rem auto 0">Open the app and you're in a room with everyone
-  watching the exact same thing at the exact same moment. Talk through it. No signup.</p>
-  <div class="badges">
-    <span class="badge">Free</span>
-    <span class="badge">No account needed</span>
-    <span class="badge">13+</span>
-  </div>
-</div>
+    For more details:
+    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
 
-<div class="cards">
-  <div class="card"><h3>Watch on your own TV</h3>
-    <p>Your subscriptions, your screen. Schitchat is the second screen &mdash; we never
-    stream a thing.</p></div>
-  <div class="card"><h3>Everyone's at the same moment</h3>
-    <p>Rooms are synced to the broadcast, and split by region so nobody spoils anybody.</p></div>
-  <div class="card"><h3>You get a stupid name</h3>
-    <p>Handed one the moment you open it. Keep it by making an account, or it goes back in
-    the pool for someone else.</p></div>
-</div>
+    This is a placeholder for base href that will be replaced by the value of
+    the `--base-href` argument provided to `flutter build`.
+  -->
+  <base href="/">
 
-<h2>How it works</h2>
-<p>Pick what's on. Join the room. Say what you're thinking while it happens &mdash; and find
-out whether everyone else saw what you just saw.</p>
-<p>Swipe a comment right if you agree, left if you don't. The room's favourite floats to the
-top; the worst one sinks to the bottom.</p>
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+  <meta name="description" content="Live text chat for whatever you're watching. Open it, get a ridiculous tag, and talk trash with everyone watching the same thing at the same time.">
+  <meta name="theme-color" content="#000000">
 
-<h2>Coming to the App Store</h2>
-<p class="meta">Schitchat is in development. Questions, or want to be told when it launches?
-<a href="/support.html">Get in touch</a>.</p>
+  <!-- How the link looks when someone shares it -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Schitchat">
+  <meta property="og:title" content="Schitchat">
+  <meta property="og:description" content="Live text chat for whatever you're watching. Get a ridiculous tag and talk trash in real time.">
+  <meta property="og:url" content="https://schitchat.com/">
+  <meta property="og:image" content="https://schitchat.com/logo_full.png">
+  <meta name="twitter:card" content="summary_large_image">
 
-<footer class="site">
-  <div>
-    <a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a>
-    <a href="/guidelines.html">Guidelines</a><a href="/support.html">Support</a>
-  </div>
-  <div>&copy; 2026 Schitchat, Inc. &middot; Schitchat is for 13 and over.</div>
-</footer>
+  <!-- iOS meta tags & icons -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="Schitchat">
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
 
-</div></body></html>
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.png"/>
+
+  <title>Schitchat</title>
+  <link rel="manifest" href="manifest.json">
+</head>
+<body style="background:#000;margin:0">
+  <!--
+    You can customize the "flutter_bootstrap.js" script.
+    This is useful to provide a custom configuration to the Flutter loader
+    or to give the user feedback during the initialization process.
+
+    For more details:
+    * https://docs.flutter.dev/platform-integration/web/initialization
+  -->
+  <script src="flutter_bootstrap.js" async></script>
+</body>
+</html>
