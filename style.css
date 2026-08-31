@@ -1,0 +1,44 @@
+/* Schitchat — the same black, gold and pink the app uses. */
+:root{
+  --bg:#000; --card:#121212; --edge:#242424;
+  --ink:#fff; --dim:#8A8A8E; --dimmer:#5A5A5E;
+  --gold:#FFC93C; --pink:#FF2D95; --blue:#4FC3F7;
+}
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--bg); color:var(--ink);
+  font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:52rem;margin:0 auto;padding:2rem 1.25rem 5rem}
+header.site{display:flex;align-items:center;justify-content:space-between;gap:1rem;
+  padding:1.25rem 0;border-bottom:1px solid var(--edge);margin-bottom:2.5rem;flex-wrap:wrap}
+header.site img{height:34px}
+nav a{color:var(--dim);text-decoration:none;font-size:.9rem;font-weight:600;margin-left:1.25rem}
+nav a:hover,nav a:focus{color:var(--ink)}
+h1{font-size:clamp(2rem,6vw,3rem);line-height:1.1;letter-spacing:-.02em;margin:0 0 1rem;font-weight:800}
+h2{font-size:1.3rem;margin:2.5rem 0 .75rem;font-weight:800}
+h3{font-size:1.05rem;margin:1.75rem 0 .5rem;font-weight:700}
+p,li{color:#D7D4CF}
+a{color:var(--gold)}
+.lede{font-size:1.15rem;color:var(--dim);max-width:38rem}
+.hero{text-align:center;padding:3rem 0 2rem}
+.hero img{width:min(300px,70vw);margin-bottom:1.5rem}
+.badges{display:flex;gap:.6rem;justify-content:center;flex-wrap:wrap;margin:1.75rem 0}
+.badge{background:var(--card);border:1px solid var(--edge);border-radius:999px;
+  padding:.4rem .9rem;font-size:.8rem;color:var(--dim);font-weight:600}
+.cards{display:grid;gap:1rem;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr));margin:2.5rem 0}
+.card{background:var(--card);border:1px solid var(--edge);border-radius:14px;padding:1.25rem}
+.card h3{margin-top:0;color:var(--gold)}
+.card p{margin:0;font-size:.95rem;color:var(--dim)}
+.meta{color:var(--dimmer);font-size:.85rem}
+footer.site{border-top:1px solid var(--edge);margin-top:4rem;padding-top:1.5rem;
+  color:var(--dimmer);font-size:.85rem;display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+footer.site a{color:var(--dim);text-decoration:none;margin-right:1rem}
+footer.site a:hover{color:var(--ink)}
+.legal h2{border-top:1px solid var(--edge);padding-top:1.75rem}
+.legal ul{padding-left:1.15rem}
+.callout{background:var(--card);border-left:3px solid var(--gold);border-radius:0 10px 10px 0;
+  padding:1rem 1.25rem;margin:1.5rem 0}
+.callout p{margin:0}
+code{background:var(--edge);padding:.1em .35em;border-radius:4px;font-size:.9em}
