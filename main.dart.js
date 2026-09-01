@@ -95239,14 +95239,14 @@ break
 case 4:s=B.cp
 break
 default:s=null}return s},
-F(a){var s,r,q=this,p=null,o=q.c,n=A.Mx(o)===B.cp,m=A.Mx(o).c,l=q.gail().c,k=n?1:B.d.dD((o-m)/(l-m),0,1),j=q.d,i=A.aq("Popularity",p,p,p,A.dP(p,p,B.Q,p,p,p,p,p,p,p,p,j?11.5:12.5,p,p,p,p,1.4,!0,p,p,p,p,p,p,p,p),p,p),h=A.eM(p,j?6:8,p),g=A.aO(99),f=j?7:9,e=t.p
-f=A.aIC(g,A.iB(B.c5,A.b([A.bJ(p,p,B.m,p,p,new A.bv(B.aq,p,p,A.aO(99),p,p,B.C),p,f,p,p,p,p,p),A.aK6(new A.a56(q,k))],e),B.L,B.bO))
-g=A.eM(p,j?5:7,p)
-if(n){s=A.aEh(o)
-o=o===1?"like":"likes"
-o=s+" "+o+" \u2014 top crown"}else{s=A.aEh(o)
-r=o===1?"like":"likes"
-o=s+" "+r+" \xb7 "+A.aEh(l-o)+" more till your next crown"}return A.c6(A.b([i,h,f,g,A.aq(o,p,p,p,A.dP(p,p,B.f,p,p,p,p,p,p,p,p,j?11:12,p,p,B.al,p,p,!0,p,p,p,p,p,p,p,p),p,p)],e),B.a0,B.n,B.u)}}
+F(a){var s,r=this,q=null,p=r.c,o=A.Mx(p)===B.cp,n=A.Mx(p).c,m=r.gail().c,l=o?1:B.d.dD((p-n)/(m-n),0,1),k=r.d,j=A.aq("Popularity",q,q,q,A.dP(q,q,B.Q,q,q,q,q,q,q,q,q,k?11.5:12.5,q,q,q,q,1.4,!0,q,q,q,q,q,q,q,q),q,q),i=A.eM(q,k?6:8,q),h=A.aO(99),g=k?7:9,f=t.p
+g=A.aIC(h,A.iB(B.c5,A.b([A.bJ(q,q,B.m,q,q,new A.bv(B.aq,q,q,A.aO(99),q,q,B.C),q,g,q,q,q,q,q),A.aK6(new A.a56(r,l))],f),B.L,B.bO))
+h=A.eM(q,k?5:7,q)
+if(o){s=A.aEh(p)
+p=p===1?"like":"likes"
+p=s+" "+p}else{s=A.aEh(p)
+p=p===1?"like":"likes"
+p=s+" "+p+" \xb7 next tier "+A.aEh(m)+" likes"}return A.c6(A.b([j,i,g,h,A.aq(p,q,q,q,A.dP(q,q,B.f,q,q,q,q,q,q,q,q,k?11:12,q,q,B.al,q,q,!0,q,q,q,q,q,q,q,q),q,q)],f),B.a0,B.n,B.u)}}
 A.a56.prototype={
 $2(a,b){var s=null,r=this.a.d?7:9,q=A.aO(99)
 r=A.jV(r,b.b*this.b)
