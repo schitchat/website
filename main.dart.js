@@ -97072,8 +97072,7 @@ else g.push(new A.Gj(d,a,new A.axB(c,d),new A.axC(c,d),new A.axD(c,a2,d),b))}g.p
 B.b.J(h,g)}g=c.ay
 if(g!=null){j=A.b([new A.Wb(g,new A.axE(c),b),B.bO],j)
 if(k)j.push(B.a7v)
-B.b.J(h,j)}else if(n.length!==0||m.length!==0){g=c.x===B.cE
-j=A.b([new A.wT(g?"everything else":"up next",g,b),B.bO],j)
+B.b.J(h,j)}else if(n.length!==0||m.length!==0){j=A.b([new A.wT(c.x===B.cE?"everything else":"up next",!1,b),B.bO],j)
 if(l.length===0)j.push(B.a9_)
 B.b.J(h,j)}for(j=l.length,e=0;e<l.length;l.length===j||(0,A.B)(l),++e){d=l[e]
 h.push(c.x===B.cE?new A.vV(d,a,new A.axF(c,d),!1,new A.axG(c,a2,d),b):new A.Gj(d,a,new A.axH(c,d),new A.axI(c,d),new A.axJ(c,a2,d),b))}j=A.lZ(h,B.lL)}i.push(A.cJ(j,1))
@@ -106131,7 +106130,7 @@ B.C4=new A.wR(3,"bottom")
 B.VY=new A.EL(null,null,null,null,null,null,null,null,null,null,null)
 B.VZ=new A.EM(null,null,null,null,null,null,null,null,null,null,null,null)
 B.W_=new A.EN(null,null,null,null,null,null,null,null,null,null,null,null,null)
-B.W0=new A.wT("your chats",!1,null)
+B.W0=new A.wT("your chats",!0,null)
 B.W1=new A.EO(null,null)
 B.aV=new A.iV(0,"tap")
 B.C5=new A.iV(1,"doubleTap")
