@@ -1,57 +1,314 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 <head>
-  <!--
-    If you are serving your web app in a path other than the root, change the
-    href value below to reflect the base path you are serving from.
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Schitchat — watch live TV with everyone watching it</title>
+<meta name="description" content="Schitchat opens a live chat room for every show on TV tonight. Walk in, talk through the whole thing, leave when the credits roll.">
+<meta property="og:title" content="Schitchat">
+<meta property="og:description" content="A live chat room for every show on tonight.">
+<meta property="og:image" content="https://schitchat.com/logo_full.png">
+<link rel="icon" href="/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;500;600;700&display=swap">
+<style>
+  :root{
+    --bg:#000; --card:#121212; --edge:#242424; --text:#fff;
+    --dim:#8A8A8E; --dimmer:#5A5A5E;
+    --gold:#FFC93C; --live:#FF3B30; --crowd:#FF2D95; --good:#3DDC7F;
+    --display:"Archivo Black","Archivo",-apple-system,Helvetica,Arial,sans-serif;
+    --body:"Archivo",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--text);font:400 17px/1.6 var(--body);
+    -webkit-font-smoothing:antialiased;overflow-x:hidden}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+  a{color:inherit}
 
-    The path provided below has to start and end with a slash "/" in order for
-    it to work correctly.
+  /* ---------- nav ---------- */
+  nav{position:sticky;top:0;z-index:50;background:rgba(0,0,0,.82);
+    backdrop-filter:blur(14px);border-bottom:1px solid var(--edge)}
+  nav .wrap{display:flex;align-items:center;gap:16px;padding-top:14px;padding-bottom:14px}
+  .mark{font-family:var(--display);font-size:21px;letter-spacing:-.5px;text-decoration:none}
+  .mark i{color:var(--gold);font-style:normal}
+  nav .spacer{flex:1}
+  .ghost{display:inline-block;padding:9px 17px;border:1px solid var(--edge);border-radius:10px;
+    font:600 14px var(--body);text-decoration:none;color:var(--dim)}
+  .ghost:hover{color:var(--text);border-color:#3a3a3a}
 
-    For more details:
-    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
+  /* ---------- hero ---------- */
+  header{padding:76px 0 40px;position:relative;overflow:hidden}
+  header::before{content:"";position:absolute;inset:-40% 30% 40% -30%;
+    background:radial-gradient(closest-side,rgba(255,201,60,.13),transparent 70%);
+    pointer-events:none}
+  .hero{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center;position:relative}
+  h1{font-family:var(--display);font-size:clamp(40px,6.4vw,74px);line-height:.98;
+    letter-spacing:-2.2px;margin:0 0 22px;text-wrap:balance}
+  h1 em{font-style:normal;color:var(--gold)}
+  .lede{font-size:19px;color:#C9C9CE;max-width:33ch;margin:0 0 30px}
+  .onair{display:inline-flex;align-items:center;gap:9px;margin-bottom:24px;
+    font:700 11.5px var(--body);letter-spacing:1.6px;color:var(--live);text-transform:uppercase}
+  .dot{width:8px;height:8px;border-radius:50%;background:var(--live);
+    box-shadow:0 0 0 0 rgba(255,59,48,.65);animation:pulse 2s infinite}
+  @keyframes pulse{70%{box-shadow:0 0 0 11px rgba(255,59,48,0)}100%{box-shadow:0 0 0 0 rgba(255,59,48,0)}}
 
-    This is a placeholder for base href that will be replaced by the value of
-    the `--base-href` argument provided to `flutter build`.
-  -->
-  <base href="/">
+  .stores{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+  .store{display:flex;align-items:center;gap:11px;padding:13px 20px;border-radius:13px;
+    background:#0e0e10;border:1px solid var(--edge);text-decoration:none;min-width:198px}
+  .store svg{width:22px;height:22px;flex:none;fill:var(--dim)}
+  .store b{display:block;font:700 15px var(--body);color:var(--dim);line-height:1.15}
+  .store span{display:block;font-size:11px;color:var(--dimmer);letter-spacing:.4px}
+  .soon{margin-top:14px;font-size:13.5px;color:var(--dimmer)}
+  .soon a{color:var(--gold)}
 
-  <meta charset="UTF-8">
-  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
-  <meta name="description" content="Live text chat for whatever you're watching. Open it, get a ridiculous tag, and talk trash with everyone watching the same thing at the same time.">
-  <meta name="theme-color" content="#000000">
+  /* ---------- phone ---------- */
+  .phone{justify-self:center;width:300px;aspect-ratio:9/19.5;border-radius:44px;
+    background:#0a0a0c;border:1px solid #2c2c31;padding:11px;
+    box-shadow:0 40px 90px rgba(0,0,0,.85),0 0 0 1px rgba(255,255,255,.04) inset}
+  .screen{width:100%;height:100%;border-radius:34px;background:#000;overflow:hidden;
+    display:flex;flex-direction:column}
+  .screen img{width:100%;height:100%;object-fit:cover;object-position:top}
+  .stub{padding:15px 13px;display:flex;flex-direction:column;gap:10px;height:100%}
+  .stub .top{display:flex;align-items:center;justify-content:space-between}
+  .stub .wm{font-family:var(--display);font-size:13px;letter-spacing:-.3px}
+  .stub .wm i{color:var(--gold);font-style:normal}
+  .tag{font:700 10.5px var(--body);color:var(--gold);border:1px solid #333;
+    border-radius:99px;padding:4px 9px}
+  .tabs{display:flex;gap:6px}
+  .tab{flex:1;text-align:center;font:700 10.5px var(--body);padding:8px 0;border-radius:9px;
+    border:1.5px solid #fff;color:#fff}
+  .tab.on{background:var(--gold);color:#000;border-color:var(--gold)}
+  .row{display:flex;gap:9px;background:#101012;border:1px solid var(--edge);
+    border-radius:12px;padding:9px}
+  .art{width:40px;height:54px;border-radius:6px;flex:none;
+    background:linear-gradient(140deg,#242429,#38383f)}
+  .art.bb{background:linear-gradient(140deg,#1d3a63,#2f6fb0)}
+  .art.hw{background:linear-gradient(140deg,#6b2438,#c05a72)}
+  .art.ks{background:linear-gradient(140deg,#4a331d,#8a6134)}
+  .row .meta{min-width:0;flex:1}
+  .row h4{margin:0;font:700 11.5px var(--body);white-space:nowrap;overflow:hidden;
+    text-overflow:ellipsis}
+  .row p{margin:2px 0 0;font-size:9.5px;color:var(--dim);white-space:nowrap;
+    overflow:hidden;text-overflow:ellipsis}
+  .chip{display:inline-block;margin-top:5px;font:700 8.5px var(--body);
+    border:1px solid var(--edge);border-radius:5px;padding:2px 6px}
+  .right{display:flex;flex-direction:column;align-items:flex-end;justify-content:center;gap:5px}
+  .livetag{font:800 8px var(--body);letter-spacing:.7px;background:var(--live);
+    color:#fff;border-radius:4px;padding:2px 5px}
+  .count{font:800 10px var(--body);color:var(--crowd)}
+  .join{background:var(--gold);color:#000;font:800 9px var(--body);letter-spacing:.5px;
+    border-radius:7px;padding:5px 11px}
+  .when{font:700 9.5px var(--body);color:var(--gold)}
 
-  <!-- How the link looks when someone shares it -->
-  <meta property="og:type" content="website">
-  <meta property="og:site_name" content="Schitchat">
-  <meta property="og:title" content="Schitchat">
-  <meta property="og:description" content="Live text chat for whatever you're watching. Get a ridiculous tag and talk trash in real time.">
-  <meta property="og:url" content="https://schitchat.com/">
-  <meta property="og:image" content="https://schitchat.com/logo_full.png">
-  <meta name="twitter:card" content="summary_large_image">
+  /* ---------- sections ---------- */
+  section{padding:74px 0;border-top:1px solid #131316}
+  .eyebrow{font:700 11.5px var(--body);letter-spacing:2px;color:var(--gold);
+    text-transform:uppercase;margin:0 0 14px}
+  h2{font-family:var(--display);font-size:clamp(28px,3.9vw,44px);line-height:1.04;
+    letter-spacing:-1.2px;margin:0 0 18px;text-wrap:balance}
+  .sub{color:#C9C9CE;max-width:60ch;margin:0}
 
-  <!-- iOS meta tags & icons -->
-  <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="Schitchat">
-  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+  .three{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:44px}
+  .cell{background:#0c0c0e;border:1px solid var(--edge);border-radius:18px;padding:26px}
+  .cell h3{font-family:var(--display);font-size:19px;letter-spacing:-.5px;margin:0 0 10px}
+  .cell p{margin:0;font-size:15.5px;color:#ABABB2}
+  .num{font-family:var(--display);font-size:13px;color:var(--gold);margin:0 0 14px}
 
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" href="favicon.png"/>
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+  .split.flip .copy{order:2}
 
-  <title>Schitchat</title>
-  <link rel="manifest" href="manifest.json">
+  /* the show-clock illustration */
+  .clockbox{background:#0c0c0e;border:1px solid var(--edge);border-radius:18px;padding:26px}
+  .bar{height:5px;border-radius:3px;background:#242428;position:relative;margin:26px 0 9px}
+  .bar i{position:absolute;inset:0 auto 0 0;width:42%;border-radius:3px;background:var(--gold)}
+  .bar b{position:absolute;left:42%;top:-5px;width:13px;height:15px;border-radius:3px;
+    background:var(--gold);transform:translateX(-50%)}
+  .times{display:flex;justify-content:space-between;font:700 11px var(--body);color:var(--gold)}
+  .times span:last-child{color:var(--dimmer)}
+  .msg{background:#0f1a10;border:1px solid #1e4d2b;border-radius:11px;padding:10px 12px;margin-top:11px}
+  .msg.bad{background:#1a0f10;border-color:#5a2226}
+  .msg .who{font:700 11.5px var(--body);color:var(--gold)}
+  .msg .who em{font-style:normal;color:var(--dimmer);font-weight:400;margin-left:6px}
+  .msg .who b{float:right;color:var(--good);font-size:11px}
+  .msg.bad .who b{color:var(--live)}
+  .msg p{margin:4px 0 0;font-size:14px}
+
+  ul.plain{list-style:none;padding:0;margin:26px 0 0}
+  ul.plain li{padding:14px 0;border-top:1px solid #16161a;font-size:16px;color:#ABABB2}
+  ul.plain li b{color:var(--text);font-weight:700}
+
+  footer{border-top:1px solid var(--edge);padding:46px 0 60px;color:var(--dimmer);font-size:14px}
+  footer .links{display:flex;gap:22px;flex-wrap:wrap;margin-bottom:18px}
+  footer a{color:var(--dim);text-decoration:none}
+  footer a:hover{color:var(--text)}
+
+  @media (max-width:900px){
+    .hero,.split{grid-template-columns:1fr;gap:40px}
+    .split.flip .copy{order:0}
+    .three{grid-template-columns:1fr}
+    header{padding-top:46px}
+    .phone{width:270px}
+  }
+</style>
 </head>
-<body style="background:#000;margin:0">
-  <!--
-    You can customize the "flutter_bootstrap.js" script.
-    This is useful to provide a custom configuration to the Flutter loader
-    or to give the user feedback during the initialization process.
+<body>
 
-    For more details:
-    * https://docs.flutter.dev/platform-integration/web/initialization
-  -->
-  <script src="flutter_bootstrap.js" async></script>
+<nav><div class="wrap">
+  <a class="mark" href="/">SCHIT<i>CHAT</i></a>
+  <span class="spacer"></span>
+  <a class="ghost" href="#how">How it works</a>
+  <a class="ghost" href="#get">Get the app</a>
+</div></nav>
+
+<header><div class="wrap hero">
+  <div>
+    <div class="onair"><span class="dot"></span> On air tonight</div>
+    <h1>Every show gets a <em>room</em>.</h1>
+    <p class="lede">Schitchat opens a live chat for whatever is on TV right now.
+      Walk in, talk through the whole thing with everyone else watching, and
+      leave when the credits roll.</p>
+    <div class="stores" id="get">
+      <span class="store">
+        <svg viewBox="0 0 24 24"><path d="M16.4 12.7c0-2.2 1.8-3.3 1.9-3.3-1-1.5-2.6-1.7-3.2-1.7-1.4-.1-2.7.8-3.3.8-.7 0-1.7-.8-2.8-.8-1.5 0-2.8.8-3.6 2.1-1.5 2.6-.4 6.5 1.1 8.6.7 1 1.6 2.2 2.7 2.2 1.1 0 1.5-.7 2.8-.7s1.6.7 2.8.7c1.1 0 1.9-1 2.6-2.1.8-1.2 1.2-2.4 1.2-2.5-.1 0-2.2-.9-2.2-3.3zM14.3 5.6c.6-.7 1-1.7.9-2.7-.9 0-2 .6-2.6 1.3-.6.6-1.1 1.7-.9 2.6 1 .1 2-.5 2.6-1.2z"/></svg>
+        <span><b>App Store</b><span>Coming soon</span></span>
+      </span>
+      <span class="store">
+        <svg viewBox="0 0 24 24"><path d="M3.6 2.3c-.3.3-.5.8-.5 1.4v16.6c0 .6.2 1.1.5 1.4l.1.1 9.3-9.3v-.2L3.6 2.3zm12.5 6.2L13.8 11l2.3 2.3 2.8-1.6c.8-.5.8-1.3 0-1.7l-2.8-1.5zm-1 3.7L5.1 21.6c.3.3.7.3 1.2 0l9.5-5.4-2.7-2.7v-.1.6zM5.1 2.4l9.5 9.5 2.7-2.7L6.3 2.4c-.5-.3-.9-.3-1.2 0z"/></svg>
+        <span><b>Google Play</b><span>Coming soon</span></span>
+      </span>
+    </div>
+    <p class="soon">Not out yet. Want a nudge the day it lands?
+      <a href="mailto:what@schitchat.com?subject=Tell%20me%20when%20Schitchat%20is%20out">Email us</a>.</p>
+  </div>
+
+  <div class="phone"><div class="screen"><div class="stub">
+    <div class="top"><span class="wm">SCHIT<i>CHAT</i></span><span class="tag">butter-butt</span></div>
+    <div class="tabs"><span class="tab on">NOW</span><span class="tab">UPCOMING</span><span class="tab">+ GOSS</span></div>
+    <div class="row">
+      <span class="art bb"></span>
+      <span class="meta"><h4>Big Brother</h4><p>S28 E34 · Live Eviction</p><span class="chip">CBS</span></span>
+      <span class="right"><span class="livetag">LIVE!</span><span class="count">104 in here</span><span class="join">JOIN</span></span>
+    </div>
+    <div class="row">
+      <span class="art hw"></span>
+      <span class="meta"><h4>Real Housewives</h4><p>S20 E12 · Lei It on Me</p><span class="chip">Bravo</span></span>
+      <span class="right"><span class="livetag">LIVE!</span><span class="count">61 in here</span><span class="join">JOIN</span></span>
+    </div>
+    <div class="row">
+      <span class="art ks"></span>
+      <span class="meta"><h4>A Killer Story</h4><p>S1 E3 · A Dangerous Notion</p><span class="chip">HBO</span></span>
+      <span class="right"><span class="when">6:00 PM</span><span class="count">in 1h 8m</span></span>
+    </div>
+    <div class="row">
+      <span class="art"></span>
+      <span class="meta"><h4>American Horror Story</h4><p>S13 E1–E3 · double bill</p><span class="chip">FX</span></span>
+      <span class="right"><span class="when">6:00 PM</span><span class="count">in 1h 8m</span></span>
+    </div>
+  </div></div></div>
+</div></header>
+
+<section id="how"><div class="wrap">
+  <p class="eyebrow">How it works</p>
+  <h2>Open the app. Something's already on.</h2>
+  <p class="sub">No feed to scroll, nobody to follow, nothing to set up. The schedule
+    fills itself from live US listings, so tonight's rooms are waiting when you get there.</p>
+
+  <div class="three">
+    <div class="cell">
+      <p class="num">01</p>
+      <h3>Pick what you're watching</h3>
+      <p>Tonight's shows, the channel each one is on, and how many people are
+        already in the room. Tap the one you've got on.</p>
+    </div>
+    <div class="cell">
+      <p class="num">02</p>
+      <h3>You get a name</h3>
+      <p>butter-butt. worm-gremlin. snot-boots. Everyone gets one on the way in —
+        no profile, no photo, no follower count to protect.</p>
+    </div>
+    <div class="cell">
+      <p class="num">03</p>
+      <h3>Say what you think</h3>
+      <p>The room reacts in real time. Good lines glow green, bad takes glow red,
+        and the room's favourite sticks to the top.</p>
+    </div>
+  </div>
+</div></section>
+
+<section><div class="wrap split">
+  <div class="copy">
+    <p class="eyebrow">The clever bit</p>
+    <h2>Everyone's at the same minute.</h2>
+    <p class="sub">Rooms run on <b>show time</b>, not the clock. Every message is stamped
+      with how far into the episode it was said — so if you join twenty minutes late,
+      you see what the room said twenty minutes in, not the ending.</p>
+    <p class="sub" style="margin-top:16px">And because the schedule follows your own
+      broadcast feed, the West Coast isn't reading the East Coast's reaction to
+      something that hasn't happened yet.</p>
+  </div>
+  <div class="clockbox">
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <strong style="font-family:var(--display);font-size:17px">Big Brother</strong>
+      <span class="livetag">LIVE!</span>
+    </div>
+    <div class="bar"><i></i><b></b></div>
+    <div class="times"><span>25:56</span><span>1:00:00</span></div>
+    <div class="msg"><div class="who">feral-raccoon <em>9:00</em> <b>▲ 44</b></div>
+      <p>^ every season someone says this lol</p></div>
+    <div class="msg"><div class="who">crusty-sponge <em>19:00</em> <b>▲ 52</b></div>
+      <p>THE BETRAYAL</p></div>
+    <div class="msg bad"><div class="who">nostril-pigeon <em>8:00</em> <b>▼ 12</b></div>
+      <p>im sorry but the veto comp is rigged</p></div>
+  </div>
+</div></section>
+
+<section><div class="wrap split flip">
+  <div class="copy">
+    <p class="eyebrow">Save your seat</p>
+    <h2>Be in the room before it starts.</h2>
+    <p class="sub">Tap a show that hasn't started and it goes on your home screen.
+      Doors open fifteen minutes early with a countdown, and the room unlocks itself
+      the second the show begins — so there's nothing to scroll past and nothing to spoil.</p>
+    <ul class="plain">
+      <li><b>Nothing to sign up for.</b> Open it and you're in.</li>
+      <li><b>Your own rooms.</b> Start a private chat and share the code — nobody gets in without it.</li>
+      <li><b>Crowns.</b> Likes add up across everything you post. People notice.</li>
+    </ul>
+  </div>
+  <div class="clockbox">
+    <p style="margin:0;color:var(--dim);font-size:14px">hasn't started yet</p>
+    <h3 style="font-family:var(--display);font-size:24px;letter-spacing:-.8px;margin:8px 0 6px">
+      The Real Housewives of Orange County</h3>
+    <p style="margin:0 0 22px;color:var(--dim);font-size:14px">5:00 PM · Bravo · in 1h 8m</p>
+    <ul class="plain" style="margin:0">
+      <li>It goes on your home screen so you can find it again.</li>
+      <li>Doors open 15 minutes before it starts.</li>
+      <li>Nobody can post until the show actually begins.</li>
+    </ul>
+    <div style="margin-top:22px;background:var(--gold);color:#000;text-align:center;
+      border-radius:12px;padding:14px;font:800 15px var(--body);letter-spacing:.4px">SAVE MY SEAT</div>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <p class="eyebrow">House rules</p>
+  <h2>A room full of strangers, run like one.</h2>
+  <p class="sub">Schitchat is for 13 and over. Everybody is shown the rules before they
+    say a word: don't spam the chat, and don't be a dick. Every message can be
+    reported, anybody can be blocked, and slurs don't post at all.</p>
+</div></section>
+
+<footer><div class="wrap">
+  <div class="links">
+    <a href="/privacy.html">Privacy</a>
+    <a href="/terms.html">Terms</a>
+    <a href="/guidelines.html">Rules</a>
+    <a href="/support.html">Contact us</a>
+  </div>
+  <div>© 2026 Schitchat, Inc.</div>
+</div></footer>
+
 </body>
 </html>

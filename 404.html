@@ -1,0 +1,16 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Schitchat</title>
+<script>
+  // Invite links look like schitchat.com/c/ABCDEF and the app lives at /app.
+  // GitHub Pages serves this page for anything it cannot find, so send those
+  // through to the app rather than showing a dead end.
+  var p = location.pathname;
+  if (p.indexOf('/app') !== 0) {
+    location.replace('/app/' + location.search + location.hash);
+  }
+</script>
+<body style="background:#000;color:#8A8A8E;font:15px -apple-system,Helvetica,Arial,sans-serif;
+  display:flex;align-items:center;justify-content:center;height:100vh;margin:0">
+  <p>Taking you to Schitchat…</p>
+</body>
