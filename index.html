@@ -102,6 +102,18 @@
     border-radius:7px;padding:5px 11px}
   .when{font:700 9.5px var(--body);color:var(--gold)}
 
+  .screen .await{display:none;flex-direction:column;align-items:center;justify-content:center;
+    gap:14px;height:100%;color:var(--dimmer);font-size:13px}
+  .screen .await img{width:74px;height:auto;opacity:.5}
+  .screen.empty .await{display:flex}
+
+  .crowns{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:38px}
+  .crown{background:#0c0c0e;border:1px solid var(--edge);border-radius:18px;
+    padding:24px 18px;text-align:center}
+  .crown img{width:52px;height:52px;object-fit:contain;margin-bottom:12px}
+  .crown b{display:block;font-family:var(--display);font-size:22px;letter-spacing:-.8px}
+  .crown span{display:block;font-size:13px;color:var(--dim);margin-top:5px}
+
   /* ---------- sections ---------- */
   section{padding:74px 0;border-top:1px solid #131316}
   .eyebrow{font:700 11.5px var(--body);letter-spacing:2px;color:var(--gold);
@@ -144,6 +156,7 @@
   footer a{color:var(--dim);text-decoration:none}
   footer a:hover{color:var(--text)}
 
+  @media (max-width:760px){ .crowns{grid-template-columns:repeat(2,1fr)} }
   @media (max-width:900px){
     .hero,.split{grid-template-columns:1fr;gap:40px}
     .split.flip .copy{order:0}
@@ -164,11 +177,11 @@
 
 <header><div class="wrap hero">
   <div>
-    <div class="onair"><span class="dot"></span> On air tonight</div>
-    <h1>Every show gets a <em>room</em>.</h1>
-    <p class="lede">Schitchat opens a live chat for whatever is on TV right now.
-      Walk in, talk through the whole thing with everyone else watching, and
-      leave when the credits roll.</p>
+    <div class="onair"><span class="dot"></span> On air right now</div>
+    <h1>See what everyone's saying. <em>While it's still happening.</em></h1>
+    <p class="lede">Schitchat is a live chat room for whatever is on TV right now.
+      Walk in halfway through, find out what the room thinks of that scene, say
+      your bit, and leave when the credits roll.</p>
     <div class="stores" id="get">
       <span class="store">
         <svg viewBox="0 0 24 24"><path d="M16.4 12.7c0-2.2 1.8-3.3 1.9-3.3-1-1.5-2.6-1.7-3.2-1.7-1.4-.1-2.7.8-3.3.8-.7 0-1.7-.8-2.8-.8-1.5 0-2.8.8-3.6 2.1-1.5 2.6-.4 6.5 1.1 8.6.7 1 1.6 2.2 2.7 2.2 1.1 0 1.5-.7 2.8-.7s1.6.7 2.8.7c1.1 0 1.9-1 2.6-2.1.8-1.2 1.2-2.4 1.2-2.5-.1 0-2.2-.9-2.2-3.3zM14.3 5.6c.6-.7 1-1.7.9-2.7-.9 0-2 .6-2.6 1.3-.6.6-1.1 1.7-.9 2.6 1 .1 2-.5 2.6-1.2z"/></svg>
@@ -183,70 +196,59 @@
       <a href="mailto:what@schitchat.com?subject=Tell%20me%20when%20Schitchat%20is%20out">Email us</a>.</p>
   </div>
 
-  <div class="phone"><div class="screen"><div class="stub">
-    <div class="top"><span class="wm">SCHIT<i>CHAT</i></span><span class="tag">butter-butt</span></div>
-    <div class="tabs"><span class="tab on">NOW</span><span class="tab">UPCOMING</span><span class="tab">+ GOSS</span></div>
-    <div class="row">
-      <span class="art bb"></span>
-      <span class="meta"><h4>Big Brother</h4><p>S28 E34 · Live Eviction</p><span class="chip">CBS</span></span>
-      <span class="right"><span class="livetag">LIVE!</span><span class="count">104 in here</span><span class="join">JOIN</span></span>
+  <div class="phone"><div class="screen">
+    <img src="/shots/chat.png" alt="A Schitchat room during a live show"
+         onerror="this.closest('.screen').classList.add('empty');this.remove()">
+    <div class="await">
+      <img src="/logo_smiley.png" alt="">
+      <p>Screenshot going here</p>
     </div>
-    <div class="row">
-      <span class="art hw"></span>
-      <span class="meta"><h4>Real Housewives</h4><p>S20 E12 · Lei It on Me</p><span class="chip">Bravo</span></span>
-      <span class="right"><span class="livetag">LIVE!</span><span class="count">61 in here</span><span class="join">JOIN</span></span>
-    </div>
-    <div class="row">
-      <span class="art ks"></span>
-      <span class="meta"><h4>A Killer Story</h4><p>S1 E3 · A Dangerous Notion</p><span class="chip">HBO</span></span>
-      <span class="right"><span class="when">6:00 PM</span><span class="count">in 1h 8m</span></span>
-    </div>
-    <div class="row">
-      <span class="art"></span>
-      <span class="meta"><h4>American Horror Story</h4><p>S13 E1–E3 · double bill</p><span class="chip">FX</span></span>
-      <span class="right"><span class="when">6:00 PM</span><span class="count">in 1h 8m</span></span>
-    </div>
-  </div></div></div>
+  </div></div>
 </div></header>
 
 <section id="how"><div class="wrap">
-  <p class="eyebrow">How it works</p>
-  <h2>Open the app. Something's already on.</h2>
-  <p class="sub">No feed to scroll, nobody to follow, nothing to set up. The schedule
-    fills itself from live US listings, so tonight's rooms are waiting when you get there.</p>
+  <p class="eyebrow">Live only</p>
+  <h2>Only things that are actually on.</h2>
+  <p class="sub">Not a comment section you scroll days later. Schitchat carries the
+    shows people watch <b>live</b> — reality, competitions, the big weekly episodes,
+    awards nights — and the room only exists while the show is on air. That is the
+    whole point: everyone in there is watching the same thing at the same moment,
+    so the reaction is happening, not archived.</p>
 
   <div class="three">
     <div class="cell">
       <p class="num">01</p>
-      <h3>Pick what you're watching</h3>
-      <p>Tonight's shows, the channel each one is on, and how many people are
-        already in the room. Tap the one you've got on.</p>
+      <h3>Pick what you've got on</h3>
+      <p>What's live now and what's on later, the channel each one is on, and how
+        many people are already in the room.</p>
     </div>
     <div class="cell">
       <p class="num">02</p>
       <h3>You get a name</h3>
       <p>butter-butt. worm-gremlin. snot-boots. Everyone gets one on the way in —
-        no profile, no photo, no follower count to protect.</p>
+        no profile, no photo, no follower count to protect. Say what you actually think.</p>
     </div>
     <div class="cell">
       <p class="num">03</p>
-      <h3>Say what you think</h3>
-      <p>The room reacts in real time. Good lines glow green, bad takes glow red,
-        and the room's favourite sticks to the top.</p>
+      <h3>Watch the room react</h3>
+      <p>Lines the room agrees with glow green, ones it turns on glow red, and the
+        best comment of the night sticks to the top of the screen.</p>
     </div>
   </div>
 </div></section>
 
 <section><div class="wrap split">
   <div class="copy">
-    <p class="eyebrow">The clever bit</p>
-    <h2>Everyone's at the same minute.</h2>
-    <p class="sub">Rooms run on <b>show time</b>, not the clock. Every message is stamped
-      with how far into the episode it was said — so if you join twenty minutes late,
-      you see what the room said twenty minutes in, not the ending.</p>
-    <p class="sub" style="margin-top:16px">And because the schedule follows your own
-      broadcast feed, the West Coast isn't reading the East Coast's reaction to
-      something that hasn't happened yet.</p>
+    <p class="eyebrow">Inside a room</p>
+    <h2>The best line of the night rises to the top.</h2>
+    <p class="sub">Every comment can be thumbed up or down by anyone in the room.
+      A line people agree with turns green. One the room turns on goes red. And
+      whatever the room likes most gets pinned above the scroll as the
+      <b>favourite comment</b>, so you see the best thing anyone has said without
+      hunting for it.</p>
+    <p class="sub" style="margin-top:16px">It is fast and it is public and nobody
+      knows who you are, which is exactly why people say the thing they are
+      actually thinking.</p>
   </div>
   <div class="clockbox">
     <div style="display:flex;justify-content:space-between;align-items:center">
@@ -255,12 +257,53 @@
     </div>
     <div class="bar"><i></i><b></b></div>
     <div class="times"><span>25:56</span><span>1:00:00</span></div>
-    <div class="msg"><div class="who">feral-raccoon <em>9:00</em> <b>▲ 44</b></div>
+    <div class="msg" style="border-color:#2f7d45;background:#0f1a10">
+      <div class="who">♥ FAVOURITE · feral-raccoon <b>▲ 44</b></div>
       <p>^ every season someone says this lol</p></div>
     <div class="msg"><div class="who">crusty-sponge <em>19:00</em> <b>▲ 52</b></div>
       <p>THE BETRAYAL</p></div>
     <div class="msg bad"><div class="who">nostril-pigeon <em>8:00</em> <b>▼ 12</b></div>
       <p>im sorry but the veto comp is rigged</p></div>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <p class="eyebrow">Crowns</p>
+  <h2>Likes follow you everywhere.</h2>
+  <p class="sub">Every like you have ever been given adds up — across every room,
+    every show, however long ago. Cross a line and a crown appears next to your
+    name on everything you have ever written, in every room you walk into after that.</p>
+  <div class="crowns">
+    <div class="crown"><img src="/shots/crown_gold.png" alt=""><b>100</b><span>Gold</span></div>
+    <div class="crown"><img src="/shots/crown_silver.png" alt=""><b>1,000</b><span>Silver</span></div>
+    <div class="crown"><img src="/shots/crown_flame.png" alt=""><b>100,000</b><span>Flame</span></div>
+    <div class="crown"><img src="/shots/crown_royal.png" alt=""><b>1,000,000</b><span>Royal</span></div>
+  </div>
+  <p class="sub" style="margin-top:26px;color:var(--dimmer);font-size:15px">
+    Likes only count towards a crown if you keep your tag — which takes an email
+    and about ten seconds.</p>
+</div></section>
+
+<section><div class="wrap split">
+  <div class="copy">
+    <p class="eyebrow">No spoilers</p>
+    <h2>Everyone's at the same minute.</h2>
+    <p class="sub">Rooms run on <b>show time</b>, not the clock. Every message is
+      stamped with how far into the episode it was said — so if you join twenty
+      minutes late, you see what the room said twenty minutes in, not the ending.</p>
+    <p class="sub" style="margin-top:16px">And because the schedule follows your own
+      broadcast feed, the West Coast is not reading the East Coast's reaction to
+      something that has not happened yet.</p>
+  </div>
+  <div class="clockbox">
+    <p style="margin:0 0 6px;font:700 11.5px var(--body);letter-spacing:2px;
+      color:var(--gold);text-transform:uppercase">25 minutes in</p>
+    <div class="bar"><i></i><b></b></div>
+    <div class="times"><span>25:56</span><span>1:00:00</span></div>
+    <p class="sub" style="font-size:15px;margin-top:20px">Join now and the room
+      picks up where you are. Nothing from the last half hour is hidden, and
+      nothing from the next half hour has been said yet — because it has not
+      happened yet.</p>
   </div>
 </div></section>
 
