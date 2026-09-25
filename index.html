@@ -114,6 +114,13 @@
   .crown b{display:block;font-family:var(--display);font-size:22px;letter-spacing:-.8px}
   .crown span{display:block;font-size:13px;color:var(--dim);margin-top:5px}
 
+  .gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:34px;margin-top:44px}
+  .gallery figure{margin:0;text-align:center}
+  .phone.sm{width:100%;max-width:252px;margin:0 auto;border-radius:36px;padding:9px}
+  .phone.sm .screen{border-radius:28px}
+  .gallery figcaption{margin-top:18px;font-size:14.5px;color:var(--dim);line-height:1.5}
+  .gallery figcaption b{color:var(--text)}
+
   /* ---------- sections ---------- */
   section{padding:74px 0;border-top:1px solid #131316}
   .eyebrow{font:700 11.5px var(--body);letter-spacing:2px;color:var(--gold);
@@ -156,7 +163,8 @@
   footer a{color:var(--dim);text-decoration:none}
   footer a:hover{color:var(--text)}
 
-  @media (max-width:760px){ .crowns{grid-template-columns:repeat(2,1fr)} }
+  @media (max-width:760px){ .crowns{grid-template-columns:repeat(2,1fr)}
+    .gallery{grid-template-columns:1fr;gap:44px} }
   @media (max-width:900px){
     .hero,.split{grid-template-columns:1fr;gap:40px}
     .split.flip .copy{order:0}
@@ -197,12 +205,7 @@
   </div>
 
   <div class="phone"><div class="screen">
-    <img src="/shots/chat.png" alt="A Schitchat room during a live show"
-         onerror="this.closest('.screen').classList.add('empty');this.remove()">
-    <div class="await">
-      <img src="/logo_smiley.png" alt="">
-      <p>Screenshot going here</p>
-    </div>
+    <img src="/shots/chat.png" alt="A Schitchat room during a live episode of Big Brother">
   </div></div>
 </div></header>
 
@@ -332,6 +335,20 @@
     </ul>
     <div style="margin-top:22px;background:var(--gold);color:#000;text-align:center;
       border-radius:12px;padding:14px;font:800 15px var(--body);letter-spacing:.4px">SAVE MY SEAT</div>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <p class="eyebrow">The app</p>
+  <h2>What it looks like.</h2>
+  <p class="sub">Straight from the app. Nothing staged, nothing mocked up.</p>
+  <div class="gallery">
+    <figure><div class="phone sm"><div class="screen"><img src="/shots/home.png" alt="Tonight's shows"></div></div>
+      <figcaption>What's on tonight, and what channel it's on</figcaption></figure>
+    <figure><div class="phone sm"><div class="screen"><img src="/shots/info.png" alt="Show information"></div></div>
+      <figcaption>Tap the <b>i</b> for the episode and where to watch it</figcaption></figure>
+    <figure><div class="phone sm"><div class="screen"><img src="/shots/seat.png" alt="Save my seat"></div></div>
+      <figcaption>Save a seat and the room opens itself when it starts</figcaption></figure>
   </div>
 </div></section>
 
